@@ -1,23 +1,81 @@
-:root {
-  --primary-color: #3498db;
-  --secondary-color: #2ecc71;
-  --font-stack: 'Helvetica Neue', sans-serif;
+.root {
+  --primary-color: #3467eb;
+  --secondary-color: #ffcd3c;
+  --background-color: #f4f4f4;
+  --text-color: #333;
+  --font-family: 'Arial, sans-serif';
 }
 
 body {
-  background-color: var(--primary-color);
-  color: #333;
-  font-family: var(--font-stack);
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
 }
 
-header {
-  background-color: var(--secondary-color);
-  padding: 1rem;
+.header {
+  background: var(--primary-color);
+  padding: 20px;
   text-align: center;
 }
 
-@media (max-width: 800px) {
-  body {
-    background-color: #fff;
+.header h1 {
+  color: white;
+}
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.panel {
+  border: 1px solid var(--secondary-color);
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.responsive {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.responsive .column {
+  flex: 1;
+  padding: 10px;
+}
+
+@media (max-width: 600px) {
+  .header {
+    text-align: left;
   }
+  .panel {
+    margin: 5px 0;
+  }
+}
+
+.animated {
+  transition: transform 0.3s ease;
+}
+
+.animated:hover {
+  transform: scale(1.05);
+}
+
+.knives-panel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.knives-panel .knife {
+  background: var(--primary-color);
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  text-align: center;
 }
