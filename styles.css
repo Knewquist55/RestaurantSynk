@@ -821,4 +821,11 @@ details p { margin-top: 14px; }
     justify-content: center;
     padding: 16px;
   }
+.feature-image img {
+    max-width: 340px;
+    width: 100%;
+    display: block;
+    margin: auto;
+  }
 }
+
