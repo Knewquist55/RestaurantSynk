@@ -827,5 +827,10 @@ details p { margin-top: 14px; }
     padding: 40px;
     text-align: center;
   }
+  .feature-image img {
+    max-width: 320px;
+    filter: drop-shadow(0 0 30px rgba(100,255,180,.25));
+  }  
 }
+
 
