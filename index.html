@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="lead-form.css" />
 </head>
 <body>
   <div class="site-shell">
@@ -358,22 +359,41 @@
       <section class="section cta-section" id="next-steps">
         <div class="container cta-grid">
           <div>
-            <div class="eyebrow">Next steps</div>
-            <h2>Start with a consultation, not a commitment.</h2>
+            <div class="eyebrow">Free 15-minute review</div>
+            <h2>Start with a POS Stack Review, not a commitment.</h2>
             <p>
-              Schedule a 30 minute Zoom or Google Meet session. We will review your current POS setup, payment processing, reporting needs, inventory workflow, and operational challenges.
+              Send a few details about your current setup and we will look for practical ways to reduce software overlap, improve reporting, protect margin, and keep more control in your hands.
             </p>
             <p>
-              After the call, we take a few days to develop a custom action plan and AI powered POS solution tailored to your restaurant. We present the proposed system, cost structure, and rollout plan at no charge.
+              This is built for owners and managers who want a clear first step before talking about a full system change.
             </p>
-            <p>
-              If you decide to move forward, we work with you on flexible payments and begin implementation. You only pay for what you decide to keep.
-            </p>
+            <ul class="review-points" aria-label="What the review covers">
+              <li>Current POS and payment setup</li>
+              <li>Software overlap and recurring costs</li>
+              <li>Reporting, inventory, and workflow gaps</li>
+              <li>One practical next step for your restaurant</li>
+            </ul>
           </div>
           <div class="cta-card">
-            <h3>Book your free consultation</h3>
-            <p>Meet with Sigma41 and RestaurantSynk to identify where bundled POS costs are draining margin and what a custom owned system could look like for your operation.</p>
-            <a class="btn" href="https://calendly.com/kitchen-restaurantsynk/30min" target="_blank" rel="noreferrer">Schedule a Consultation</a>
+            <h3>Get your free POS Stack Review</h3>
+            <p>Tell us what you are using now and where the friction is. We will follow up with a practical review focused on ownership, control, and margin visibility.</p>
+            <form class="lead-form" name="pos-stack-review" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="pos-stack-review" />
+              <p class="hidden-field">
+                <label>Do not fill this out if you are human: <input name="bot-field" /></label>
+              </p>
+              <label for="review-name">Name</label>
+              <input id="review-name" name="name" type="text" autocomplete="name" required />
+              <label for="review-restaurant">Restaurant</label>
+              <input id="review-restaurant" name="restaurant" type="text" autocomplete="organization" required />
+              <label for="review-email">Email</label>
+              <input id="review-email" name="email" type="email" autocomplete="email" required />
+              <label for="review-pos">Current POS</label>
+              <input id="review-pos" name="current-pos" type="text" placeholder="Toast, Square, Clover, Lightspeed, other" />
+              <label for="review-issue">Biggest issue</label>
+              <textarea id="review-issue" name="biggest-issue" rows="4" placeholder="Costs, reporting, inventory, payment lock-in, manual work, or something else"></textarea>
+              <button class="btn" type="submit">Get Free POS Review</button>
+            </form>
             <a class="email-link" href="mailto:kitchen@restaurantsynk.com">kitchen@restaurantsynk.com</a>
           </div>
         </div>
