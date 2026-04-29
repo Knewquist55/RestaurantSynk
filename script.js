@@ -1,7 +1,15 @@
-// Small progressive enhancement for the FAQ section and button analytics hooks.
+// Small progressive enhancement for the FAQ section and Google Ads event hooks.
 (function () {
   if (typeof document === "undefined") {
     return;
+  }
+
+  function trackEvent(name, params) {
+    if (typeof window.gtag !== "function") {
+      return;
+    }
+
+    window.gtag("event", name, params || {});
   }
 
   var details = document.querySelectorAll("details");
@@ -22,4 +30,35 @@
       };
     })(details[i]));
   }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var appointmentLinks = document.querySelectorAll('a[href*="calendly.com/kitchen-restaurantsynk/30min"]');
+
+    for (var k = 0; k < appointmentLinks.length; k++) {
+      appointmentLinks[k].addEventListener("click", function () {
+        trackEvent("book_appointment", {
+          event_category: "lead",
+          event_label: "calendly_click"
+        });
+      });
+    }
+
+    var leadForms = document.querySelectorAll('form[name="pos-stack-review"]');
+
+    for (var l = 0; l < leadForms.length; l++) {
+      leadForms[l].addEventListener("submit", function () {
+        trackEvent("generate_lead", {
+          event_category: "lead",
+          event_label: "pos_stack_review_form"
+        });
+      });
+    }
+
+    if (document.body && document.body.getAttribute("data-conversion-page") === "thank-you") {
+      trackEvent("generate_lead", {
+        event_category: "lead",
+        event_label: "thank_you_page"
+      });
+    }
+  });
 })();
