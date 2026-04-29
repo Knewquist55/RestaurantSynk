@@ -1,0 +1,76 @@
+.review-points {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.review-points li {
+  position: relative;
+  padding-left: 24px;
+  color: #dce8f5;
+  line-height: 1.6;
+}
+
+.review-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green), var(--blue));
+}
+
+.lead-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.lead-form label {
+  color: #edf5ff;
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.lead-form input,
+.lead-form textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--text);
+  font: inherit;
+  padding: 13px 14px;
+  outline: none;
+}
+
+.lead-form input {
+  min-height: 48px;
+}
+
+.lead-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.lead-form input:focus,
+.lead-form textarea:focus {
+  border-color: rgba(138, 217, 59, 0.5);
+  box-shadow: 0 0 0 3px rgba(138, 217, 59, 0.14);
+}
+
+.lead-form .btn {
+  width: 100%;
+  border: 0;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.hidden-field {
+  position: absolute;
+  left: -9999px;
+}
