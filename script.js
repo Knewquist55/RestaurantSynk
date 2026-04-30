@@ -4,6 +4,12 @@
     return;
   }
 
+  var ga4MeasurementId = "G-3B1LXME2PP";
+
+  if (typeof window.gtag === "function") {
+    window.gtag("config", ga4MeasurementId);
+  }
+
   function trackEvent(name, params) {
     if (typeof window.gtag !== "function") {
       return;
