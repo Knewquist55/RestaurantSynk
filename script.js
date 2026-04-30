@@ -1,4 +1,4 @@
-// Small progressive enhancement for the FAQ section and Google Ads event hooks.
+// Small progressive enhancement for the FAQ section, CTA priority, and Google Ads event hooks.
 (function () {
   if (typeof document === "undefined") {
     return;
@@ -16,6 +16,28 @@
     }
 
     window.gtag("event", name, params || {});
+  }
+
+  function makeReviewCta(link) {
+    if (!link) {
+      return;
+    }
+
+    link.textContent = "Get Free POS Review";
+    link.setAttribute("href", "#next-steps");
+    link.removeAttribute("target");
+    link.removeAttribute("rel");
+  }
+
+  function makeBookingCta(link) {
+    if (!link) {
+      return;
+    }
+
+    link.textContent = "Book a Consultation";
+    link.setAttribute("href", "https://calendly.com/kitchen-restaurantsynk/30min");
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", "noreferrer");
   }
 
   var details = document.querySelectorAll("details");
@@ -38,6 +60,21 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    makeReviewCta(document.querySelector(".topbar .btn-small"));
+    makeReviewCta(document.querySelector(".hero-actions .btn:not(.btn-ghost)"));
+    makeBookingCta(document.querySelector(".hero-actions .btn-ghost"));
+
+    var reviewLinks = document.querySelectorAll('a[href="#next-steps"]');
+
+    for (var h = 0; h < reviewLinks.length; h++) {
+      reviewLinks[h].addEventListener("click", function () {
+        trackEvent("start_pos_review", {
+          event_category: "lead",
+          event_label: "cta_click"
+        });
+      });
+    }
+
     var appointmentLinks = document.querySelectorAll('a[href*="calendly.com/kitchen-restaurantsynk/30min"]');
 
     for (var k = 0; k < appointmentLinks.length; k++) {
