@@ -10,6 +10,18 @@ to = "/cost-calculator/:splat"
 status = 200
 force = true
 
+[[redirects]]
+from = "https://cost-calculator.restaurantsynk.com/*"
+to = "/cost-calculator/:splat"
+status = 200
+force = true
+
+[[redirects]]
+from = "http://cost-calculator.restaurantsynk.com/*"
+to = "/cost-calculator/:splat"
+status = 200
+force = true
+
 [[headers]]
 for = "/*"
 [headers.values]
