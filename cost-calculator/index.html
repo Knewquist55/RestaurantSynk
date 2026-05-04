@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RestaurantSynk Cost Calculator</title>
+  <meta name="description" content="Estimate potential monthly restaurant margin impact from labor visibility, food cost control, software overlap, and manager time savings.">
+  <link rel="canonical" href="https://www.cost-calculator.restaurantsynk.com/">
+  <style>
+    :root { --bg:#07110f; --card:#0d1b18; --card2:#10241f; --text:#eef8f4; --muted:#a9bbb4; --line:rgba(182,244,214,.18); --green:#35e58f; --blue:#4ab8ff; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; background:radial-gradient(circle at top left,rgba(53,229,143,.16),transparent 32rem),radial-gradient(circle at top right,rgba(74,184,255,.14),transparent 34rem),var(--bg); color:var(--text); }
+    .wrap { width:min(1120px,calc(100% - 32px)); margin:0 auto; padding:24px 0 44px; }
+    .top { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-bottom:24px; }
+    .brand { display:flex; align-items:center; gap:12px; color:var(--text); text-decoration:none; min-width:0; }
+    .brand img { width:42px; height:42px; object-fit:contain; border-radius:8px; background:rgba(255,255,255,.05); }
+    .brand strong { display:block; font-size:1rem; }
+    .brand span { display:block; color:var(--muted); font-size:.78rem; margin-top:2px; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:0 15px; border-radius:8px; border:1px solid rgba(255,255,255,.14); background:linear-gradient(135deg,var(--green),var(--blue)); color:#04120d; font-weight:800; font-size:.9rem; text-decoration:none; white-space:nowrap; }
+    .btn.ghost { background:rgba(255,255,255,.04); color:var(--text); }
+    .grid { display:grid; grid-template-columns:.88fr 1.12fr; gap:18px; align-items:stretch; }
+    .panel { border:1px solid var(--line); background:rgba(13,27,24,.88); border-radius:8px; box-shadow:0 24px 70px rgba(0,0,0,.34); }
+    .intro { padding:clamp(22px,4vw,38px); display:flex; flex-direction:column; justify-content:space-between; gap:24px; }
+    .eyebrow { display:inline-flex; width:fit-content; padding:6px 10px; border-radius:999px; border:1px solid rgba(53,229,143,.24); color:var(--green); background:rgba(53,229,143,.08); font-size:.75rem; font-weight:800; text-transform:uppercase; }
+    h1 { margin:18px 0; font-size:clamp(2.15rem,5vw,4.5rem); line-height:.98; letter-spacing:0; }
+    .lead { margin:0; color:var(--muted); line-height:1.68; font-size:1.05rem; max-width:58ch; }
+    .pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+    .pill { padding:8px 10px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:#d8ebe5; font-size:.78rem; font-weight:700; }
+    .disclaimer { border-top:1px solid var(--line); padding-top:18px; color:var(--muted); line-height:1.55; font-size:.9rem; }
+    .calculator { padding:clamp(16px,2.4vw,22px); }
+    .calc-head { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; margin-bottom:16px; }
+    h2 { margin:0 0 6px; font-size:1.35rem; }
+    .calc-head p { margin:0; color:var(--muted); line-height:1.45; font-size:.92rem; }
+    .presets { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; min-width:210px; }
+    button { font:inherit; }
+    .preset { min-height:36px; padding:0 10px; border-radius:8px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--text); cursor:pointer; font-size:.78rem; font-weight:800; }
+    .preset.active { border-color:rgba(53,229,143,.7); background:var(--green); color:#06140f; }
+    .calc-grid { display:grid; grid-template-columns:1fr .9fr; gap:14px; }
+    .box { border:1px solid var(--line); background:rgba(255,255,255,.035); border-radius:8px; padding:16px; }
+    .field { display:grid; grid-template-columns:minmax(0,1fr) 145px; gap:12px; align-items:center; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.07); }
+    .field:last-child { border-bottom:0; }
+    label { color:#dcece7; font-size:.9rem; font-weight:700; line-height:1.25; }
+    .hint { display:block; margin-top:4px; color:var(--muted); font-size:.72rem; font-weight:500; line-height:1.35; }
+    input { width:100%; min-height:42px; border-radius:8px; border:1px solid rgba(255,255,255,.15); background:rgba(2,8,7,.7); color:var(--text); padding:0 11px; font:inherit; font-weight:800; text-align:right; }
+    input:focus { outline:2px solid rgba(74,184,255,.46); outline-offset:2px; border-color:rgba(74,184,255,.75); }
+    .metric { display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-bottom:1px solid rgba(255,255,255,.07); color:var(--muted); font-size:.9rem; }
+    .metric strong { color:var(--text); font-size:1rem; white-space:nowrap; }
+    .headline { margin-top:14px; padding:16px; border-radius:8px; background:linear-gradient(135deg,rgba(53,229,143,.16),rgba(74,184,255,.12)); border:1px solid rgba(53,229,143,.28); }
+    .headline span { display:block; color:var(--muted); font-size:.78rem; font-weight:800; text-transform:uppercase; }
+    .headline strong { display:block; margin-top:5px; font-size:clamp(1.75rem,4vw,2.7rem); color:var(--green); line-height:1; overflow-wrap:anywhere; }
+    .headline strong.blue { color:var(--blue); }
+    .notes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:14px; }
+    .notes h3 { margin:0 0 8px; font-size:.98rem; }
+    .notes p,.notes li { color:var(--muted); font-size:.84rem; line-height:1.55; }
+    .notes p { margin:0; }
+    .notes ul { margin:0; padding-left:18px; }
+    .cta { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:18px; padding:16px; border-radius:8px; border:1px solid var(--line); background:rgba(255,255,255,.04); }
+    .cta p { margin:0; color:var(--muted); line-height:1.5; font-size:.92rem; }
+    @media (max-width:920px) { .grid,.calc-grid,.notes { grid-template-columns:1fr; } .top,.calc-head,.cta { align-items:flex-start; flex-direction:column; } .presets { justify-content:flex-start; } }
+    @media (max-width:560px) { .wrap { width:min(100% - 20px,1120px); padding-top:12px; } .actions { width:100%; justify-content:stretch; } .actions .btn { flex:1; white-space:normal; text-align:center; } .field { grid-template-columns:1fr; gap:8px; } input { text-align:left; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="https://www.restaurantsynk.com/" aria-label="RestaurantSynk home">
+        <img src="../assets/restaurantsynk-logo.png" alt="RestaurantSynk logo">
+        <div><strong>RestaurantSynk</strong><span>Cost calculator by Sigma41</span></div>
+      </a>
+      <div class="actions">
+        <a class="btn ghost" href="https://www.restaurantsynk.com/">Main Site</a>
+        <a class="btn" href="https://calendly.com/kitchen-restaurantsynk/30min" target="_blank" rel="noreferrer">Book Diagnostic</a>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="intro panel">
+        <div>
+          <div class="eyebrow">Live margin calculator</div>
+          <h1>Estimate where restaurant margin may be leaking.</h1>
+          <p class="lead">Use rough owner-controlled numbers to estimate the potential monthly impact of tighter labor visibility, food cost control, software overlap reduction, and manager time savings.</p>
+          <div class="pills">
+            <span class="pill">Current POS can stay</span>
+            <span class="pill">Directional estimate</span>
+            <span class="pill">Built for owner conversations</span>
+          </div>
+        </div>
+        <p class="disclaimer">This calculator is for directional planning only. It is not a guarantee, financial projection, accounting advice, tax advice, legal advice, or a promise of savings. Actual results depend on operations, data quality, implementation decisions, staff adoption, vendor contracts, and seasonality.</p>
+      </section>
+
+      <section class="calculator panel" aria-labelledby="calculator-title">
+        <div class="calc-head">
+          <div>
+            <h2 id="calculator-title">RestaurantSynk Cost Calculator</h2>
+            <p>Start with a preset or enter your own numbers. Improvements are percentage points of revenue.</p>
+          </div>
+          <div class="presets" aria-label="Scenario presets">
+            <button class="preset" type="button" data-preset="small">Small</button>
+            <button class="preset active" type="button" data-preset="mid">Mid</button>
+            <button class="preset" type="button" data-preset="multi">Multi-location</button>
+          </div>
+        </div>
+
+        <div class="calc-grid">
+          <div class="box" aria-label="Calculator inputs">
+            <div class="field"><label for="rev">Monthly revenue per location<span class="hint">Use one location's average monthly sales.</span></label><input id="rev" type="number" value="180000" min="0" step="1000"></div>
+            <div class="field"><label for="laborImp">Labor improvement points<span class="hint">Example: 1.5 means 1.5 percent of revenue.</span></label><input id="laborImp" type="number" value="1.5" min="0" step="0.1"></div>
+            <div class="field"><label for="foodImp">Food cost improvement points<span class="hint">Example: 1.0 means 1 percent of revenue.</span></label><input id="foodImp" type="number" value="1.0" min="0" step="0.1"></div>
+            <div class="field"><label for="saasSave">Monthly software overlap<span class="hint">Estimated duplicate or avoidable SaaS cost.</span></label><input id="saasSave" type="number" value="500" min="0" step="25"></div>
+            <div class="field"><label for="hrs">Manager hours saved monthly<span class="hint">Reports, exports, scheduling, inventory, and reconciliation.</span></label><input id="hrs" type="number" value="12" min="0" step="1"></div>
+            <div class="field"><label for="rate">Manager hourly cost<span class="hint">Use a loaded hourly estimate if known.</span></label><input id="rate" type="number" value="38" min="0" step="1"></div>
+            <div class="field"><label for="locs">Number of locations<span class="hint">Only count locations where the same workflow applies.</span></label><input id="locs" type="number" value="1" min="1" step="1"></div>
+          </div>
+
+          <div class="box" aria-live="polite" aria-label="Calculator outputs">
+            <div class="metric"><span>Monthly labor opportunity</span><strong id="laborOut">$0</strong></div>
+            <div class="metric"><span>Monthly food cost opportunity</span><strong id="foodOut">$0</strong></div>
+            <div class="metric"><span>Manager time value</span><strong id="timeOut">$0</strong></div>
+            <div class="metric"><span>Software overlap</span><strong id="saasOut">$0</strong></div>
+            <div class="headline"><span>Total monthly impact per location</span><strong id="totalPer">$0</strong></div>
+            <div class="headline"><span>Total monthly impact across locations</span><strong class="blue" id="totalAll">$0</strong></div>
+            <div class="headline"><span>Annualized directional impact</span><strong class="blue" id="annualAll">$0</strong></div>
+          </div>
+        </div>
+
+        <div class="notes">
+          <aside class="box"><h3>How to read this</h3><p>This shows what may be worth validating if food cost, labor, manager time, and software overlap improve.</p></aside>
+          <aside class="box"><h3>Use conservative inputs</h3><ul><li>Labor: 0.5 to 1.5 points</li><li>Food cost: 0.25 to 1.0 point</li><li>Manager time: 4 to 12 hours</li></ul></aside>
+          <aside class="box"><h3>Next step</h3><p>If the number still matters after conservative assumptions, book a RestaurantSynk diagnostic review.</p></aside>
+        </div>
+
+        <div class="cta">
+          <p>RestaurantSynk reviews the stack around the POS: reporting, inventory, labor, food cost, workflow, and software overlap. The first step is clarity, not disruption.</p>
+          <a class="btn" href="https://calendly.com/kitchen-restaurantsynk/30min" target="_blank" rel="noreferrer">Schedule Review</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const presets = {
+      small: { rev:80000, laborImp:1.0, foodImp:0.5, saasSave:250, hrs:6, rate:30, locs:1 },
+      mid: { rev:180000, laborImp:1.5, foodImp:1.0, saasSave:500, hrs:12, rate:38, locs:1 },
+      multi: { rev:140000, laborImp:1.0, foodImp:0.75, saasSave:600, hrs:8, rate:42, locs:4 }
+    };
+    const ids = ["rev","laborImp","foodImp","saasSave","hrs","rate","locs"];
+    const fmt = new Intl.NumberFormat(undefined, { style:"currency", currency:"USD", maximumFractionDigits:0 });
+    const num = id => Number(document.getElementById(id).value) || 0;
+    function calc() {
+      const rev = num("rev");
+      const labor = rev * (num("laborImp") / 100);
+      const food = rev * (num("foodImp") / 100);
+      const saas = num("saasSave");
+      const time = num("hrs") * num("rate");
+      const locs = Math.max(1, num("locs"));
+      const totalPer = labor + food + saas + time;
+      const totalAll = totalPer * locs;
+      document.getElementById("laborOut").textContent = fmt.format(labor);
+      document.getElementById("foodOut").textContent = fmt.format(food);
+      document.getElementById("saasOut").textContent = fmt.format(saas);
+      document.getElementById("timeOut").textContent = fmt.format(time);
+      document.getElementById("totalPer").textContent = fmt.format(totalPer);
+      document.getElementById("totalAll").textContent = fmt.format(totalAll);
+      document.getElementById("annualAll").textContent = fmt.format(totalAll * 12);
+    }
+    function applyPreset(name) {
+      const preset = presets[name];
+      if (!preset) return;
+      ids.forEach(id => { document.getElementById(id).value = preset[id]; });
+      document.querySelectorAll(".preset").forEach(button => button.classList.toggle("active", button.dataset.preset === name));
+      calc();
+    }
+    ids.forEach(id => document.getElementById(id).addEventListener("input", () => { document.querySelectorAll(".preset").forEach(button => button.classList.remove("active")); calc(); }));
+    document.querySelectorAll(".preset").forEach(button => button.addEventListener("click", () => applyPreset(button.dataset.preset)));
+    calc();
+  </script>
+</body>
+</html>
