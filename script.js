@@ -5,6 +5,7 @@
   }
 
   var ga4MeasurementId = "G-3B1LXME2PP";
+  var calculatorUrl = "https://www.cost-calculator.restaurantsynk.com/";
 
   if (typeof window.gtag === "function") {
     window.gtag("config", ga4MeasurementId);
@@ -40,6 +41,29 @@
     link.setAttribute("rel", "noreferrer");
   }
 
+  function createCalculatorLink(extraClasses) {
+    var link = document.createElement("a");
+    link.className = extraClasses;
+    link.textContent = "Cost Calculator";
+    link.setAttribute("href", calculatorUrl);
+    link.setAttribute("aria-label", "Open the RestaurantSynk cost calculator");
+    return link;
+  }
+
+  function addCalculatorLinks() {
+    var topbarCta = document.querySelector(".topbar .btn-small");
+    if (topbarCta && !document.querySelector(".topbar .calculator-link")) {
+      var topbarLink = createCalculatorLink("btn btn-small btn-ghost calculator-link");
+      topbarCta.insertAdjacentElement("afterend", topbarLink);
+    }
+
+    var heroActions = document.querySelector(".hero-actions");
+    if (heroActions && !heroActions.querySelector(".calculator-link")) {
+      var heroLink = createCalculatorLink("btn btn-ghost calculator-link");
+      heroActions.appendChild(heroLink);
+    }
+  }
+
   var details = document.querySelectorAll("details");
 
   for (var i = 0; i < details.length; i++) {
@@ -63,6 +87,7 @@
     makeReviewCta(document.querySelector(".topbar .btn-small"));
     makeReviewCta(document.querySelector(".hero-actions .btn:not(.btn-ghost)"));
     makeBookingCta(document.querySelector(".hero-actions .btn-ghost"));
+    addCalculatorLinks();
 
     var reviewLinks = document.querySelectorAll('a[href="#next-steps"]');
 
@@ -71,6 +96,17 @@
         trackEvent("start_pos_review", {
           event_category: "lead",
           event_label: "cta_click"
+        });
+      });
+    }
+
+    var calculatorLinks = document.querySelectorAll('a[href="' + calculatorUrl + '"]');
+
+    for (var c = 0; c < calculatorLinks.length; c++) {
+      calculatorLinks[c].addEventListener("click", function () {
+        trackEvent("open_cost_calculator", {
+          event_category: "engagement",
+          event_label: "calculator_click"
         });
       });
     }
