@@ -1,3 +1,15 @@
+[[redirects]]
+from = "https://www.cost-calculator.restaurantsynk.com/*"
+to = "/cost-calculator/:splat"
+status = 200
+force = true
+
+[[redirects]]
+from = "http://www.cost-calculator.restaurantsynk.com/*"
+to = "/cost-calculator/:splat"
+status = 200
+force = true
+
 [[headers]]
 for = "/*"
 [headers.values]
@@ -18,5 +30,10 @@ for = "/*.css"
 
 [[headers]]
 for = "/*.js"
+[headers.values]
+  Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+for = "/cost-calculator/*"
 [headers.values]
   Cache-Control = "public, max-age=0, must-revalidate"
