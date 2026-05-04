@@ -5,7 +5,7 @@
   }
 
   var ga4MeasurementId = "G-3B1LXME2PP";
-  var calculatorUrl = "https://www.cost-calculator.restaurantsynk.com/";
+  var calculatorUrl = "https://www.restaurantsynk.com/cost-calculator/";
 
   if (typeof window.gtag === "function") {
     window.gtag("config", ga4MeasurementId);
